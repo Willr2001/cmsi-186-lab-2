@@ -22,6 +22,7 @@ public abstract class TestSuite {
         if (condition) {
             System.out.print(green(" \u2713"));
         } else {
+            System.out.println("FAILURE");
             failures++;
             System.err.print(red(" \u274C " + message));
         }
@@ -77,9 +78,12 @@ public abstract class TestSuite {
             System.out.println();
             System.out.print(test.name);
             try {
+                System.out.println("RUN");
                 test.code.run();
             } catch (Exception e) {
                 suite.errors++;
+                System.out.print("FAILED: " + test.name);
+
                 System.err.print(red(" \u2620 " + e.getMessage()));
             }
         }
@@ -88,7 +92,7 @@ public abstract class TestSuite {
         var successes = suite.totalTests - suite.failures - suite.errors;
         System.out.printf("Total  : %d%n", suite.totalTests);
         System.out.printf(green("Passed : %d%n"), successes);
-        System.out.printf(red("Failed : %d%n"), suite.failures);
+          System.out.printf(red("Failed : %d%n"), suite.failures);
         System.out.printf(red("Errors : %d%n"), suite.errors);
     }
 }

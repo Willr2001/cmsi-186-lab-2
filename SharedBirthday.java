@@ -9,6 +9,8 @@ public class SharedBirthday {
             int days = Integer.parseInt(args[1]);
             int trials = Integer.parseInt(args[2]);
             System.out.println(probabilityEstimate(people, days, trials));
+
+
         } catch (NumberFormatException e) {
             System.err.println("Arguments must all be integers");
         } catch (IllegalArgumentException e) {
@@ -17,13 +19,36 @@ public class SharedBirthday {
     }
 
     public static double probabilityEstimate(int people, int days, int trials) {
-        //
-        // TODO: Do the main work here. I've just returned 0.0 as a place holder
-        // so the code compiles. It isn't right though. Remove the return here and
-        // implement the whole method on your own.
-        //
-        return 0.0;
+      if (people < 2) {
+        throw new IllegalArgumentException("At least two poeple required");
+      }
+
+      if (days < 1) {
+        throw new IllegalArgumentException("At least one day required");
+      }
+
+      if (trials < 1) {
+        throw new IllegalArgumentException("At least one trial required");
+      }
+
+      for (int t = 0; t < trials; t++) {
+
+        boolean[] hasBirthday = new boolean[days];
+
+        while (true) {
+          people++;
+          int d = (int) (days * Math.random());
+          if (hasBirthday[d]) break;
+          hasBirthday[d] = true;
+        }
+
+      }
+
+      return (double) people / trials;
+      //System.out.println("Average = "+ average);
+
     }
+
 
     //
     // TODO: Don't be afraid to write private helper methods to keep your code modular.

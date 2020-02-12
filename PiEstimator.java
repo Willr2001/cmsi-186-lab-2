@@ -1,35 +1,44 @@
 public class PiEstimator {
 
     public static void main(String[] args) {
+        System.out.println("ARGS LENGTH: " + args.length);
         try {
             if (args.length != 1) {
-                throw new IllegalArgumentException("Exactly one argument required");
+                throw new Exception("Exactly one argument required");
+                // System.err.println("Exactly one argument required");
+
             }
-            //
-            // TODO: Parse the command line argument and call your estimate function
-            //
+            int darts = Integer.parseInt(args[0]);
+            System.out.println(estimate(darts));
+
         } catch (NumberFormatException e) {
-            //
-            // TODO: Take care of a possible non-integer argument.
-            //
+            System.err.println("Argument must be an integer");
+
         } catch (IllegalArgumentException e) {
-            //
-            // TODO: Take care of the exception you threw above.
-            //
+            // System.err.println("At least one dart required");
+            System.err.println("Exactly one argument required");
+
+        } catch (Exception e) {
+            System.err.println(e.getMessage());
         }
     }
 
     public static double estimate(int darts) {
-        //
-        // TODO: Do the main work here. I've just returned 0.0 as a place holder
-        // so the code compiles. It isn't right though. Remove the return here and
-        // implement the whole method on your own.
-        //
-        return 0.0;
+        double pi = 0.0;
+
+        if(darts < 1){
+          throw new IllegalArgumentException("At least one dart required");
+        }else{
+
+          int inside = 0;
+          for(var i = 0; i < darts; i++){
+              if(Math.hypot(Math.random(),Math.random()) <= 1){
+                inside+= 1;
+              }
+          }
+          pi = 4 * ((double)inside/(double)darts);
+        }
+        return pi;
     }
 
-    //
-    // Don't be afraid to put in some private "helper" methods. You don't have to, of
-    // course, but they could be useful and keep your code modular.
-    //
 }
